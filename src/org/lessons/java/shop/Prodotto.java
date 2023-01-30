@@ -1,38 +1,39 @@
 package org.lessons.java.shop;
-
 import java.util.Random;
 
 public class Prodotto {
-	
 	int codice;
 	String nome;
 	String descrizione;
 	float prezzo;
-	float iva = 0.22F;
+	float iva = 22;
 	
-	
-	public Prodotto(String nome, String descrizione, float prezzo, float iva) {
-		super();
-		this.codice = generateRandomId();
+	public Prodotto(String nome, String descrizione, float prezzo) {
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.prezzo = prezzo;
-		this.iva = iva;
-	}
-	
-	
-	private int generateRandomId() {
-		Random r = new Random();
-		int randomId = r.nextInt(90000);
-		return randomId;
+		
+		Random rand = new Random();
+		this.codice = rand.nextInt(100000000);
 	}
 	
 	public float prezzoImponibile() {
-		return prezzo;
+		return this.prezzo;
 	}
 	
-	public float prezzoTotale() {
-		float prezzoFinale = prezzo + (prezzo * iva);
-		return prezzoFinale;
+	public float prezzoFinale() {
+		return this.prezzo * ( this.iva/100 + this.prezzo );
+	}
+	
+	public String nomeCompletoProdotto() {
+		return this.codiceIdentificativo() + "-" + this.nome;
+	}
+	
+	public String descrizioneProdotto() {
+		return this.descrizione;
+	}
+	
+	public String codiceIdentificativo() {
+		return String.format("%08d", this.codice);
 	}
 }
